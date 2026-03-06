@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -80,16 +81,22 @@ plt.show()
 fig, ax = plt.subplots(figsize=(7, 4))
 fig.suptitle("Question Length Distribution")
 
-ax.hist(mmlu_df["question_len"], bins=40,
-        alpha=0.7, edgecolor="white", density=False, label="All")
+_, bin_edges = np.histogram(mmlu_df["question_len"], bins="scott")
 
-ax.hist(mmlu_df[mmlu_df["category"] == "Math"]["question_len"], bins=40,
+ax.hist(mmlu_df["question_len"], bins=bin_edges,
+        alpha=0.7, edgecolor="white", density=False, label="All")
+ax.hist(mmlu_df[mmlu_df["category"] == "Mathematical"]["question_len"], bins=bin_edges,
         alpha=0.5, edgecolor="white", density=False, label="Math")
-ax.hist(mmlu_df[mmlu_df["category"] == "Non-Math"]["question_len"], bins=40,
+ax.hist(mmlu_df[mmlu_df["category"] == "Non-Mathematical"]["question_len"], bins=bin_edges,
         alpha=0.5, edgecolor="white", density=False, label="Non-Math")
 
 median_all = mmlu_df["question_len"].median()
+median_math = mmlu_df[mmlu_df["category"] == "Mathematical"]["question_len"].median()
+median_nonmath = mmlu_df[mmlu_df["category"] == "Non-Mathematical"]["question_len"].median()
+
 ax.axvline(median_all, color="black", linestyle="--", linewidth=1.0, label=f"Overall median: {median_all:.0f}")
+ax.axvline(median_math, color="steelblue", linestyle="--", linewidth=1.0, label=f"Math median: {median_math:.0f}")
+ax.axvline(median_nonmath, color="orange", linestyle="--", linewidth=1.0, label=f"Non-Math median: {median_nonmath:.0f}")
 
 ax.set_xlabel("Number of Words")
 ax.set_ylabel("Count")

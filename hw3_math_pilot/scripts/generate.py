@@ -37,10 +37,27 @@ def set_seed(seed):
         torch.cuda.manual_seed_all(seed)
 
 def extract_final_answer(text):
+    # 1) Final Answer:
     m = re.search(r"Final Answer:\s*(.+)", text, flags=re.IGNORECASE)
-    if not m:
-        return None
-    return m.group(1).strip().splitlines()[0].strip()
+    if m:
+        return m.group(1).strip().splitlines()[0].strip()
+
+    # 2) boxed answer (common for SFT/DRPO)
+    m = re.findall(r"\\boxed\{([^}]*)\}", text)
+    if m:
+        return m[-1].strip()
+
+    # 3) natural language pattern (common for Base)
+    m = re.search(r"final answer is\s*\$?(.+?)\$?[\.\n]", text, flags=re.IGNORECASE)
+    if m:
+        return m.group(1).strip()
+
+    # 4) fallback: last number-like token
+    m = re.findall(r"(-?\d+\.?\d*)", text)
+    if m:
+        return m[-1].strip()
+
+    return None
 
 def main():
     os.makedirs("logs", exist_ok=True)

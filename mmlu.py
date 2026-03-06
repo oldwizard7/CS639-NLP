@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datasets import load_dataset
+import random
 
 SAVE_DIR = "./mmluFigures"
 os.makedirs(SAVE_DIR, exist_ok=True)
@@ -98,4 +99,39 @@ plt.tight_layout()
 plt.savefig(f"{SAVE_DIR}/mmlu_fig3_question_length.pdf", bbox_inches="tight")
 plt.savefig(f"{SAVE_DIR}/mmlu_fig3_question_length.png", bbox_inches="tight")
 plt.show()
-print("Saved: mmlu_fig3_question_length")
+
+def get_representative(df, category, seed=42):
+    random.seed(seed)
+    subset = df[df["category"] == category].copy()
+
+    q25 = subset["question_len"].quantile(0.25)
+    q75 = subset["question_len"].quantile(0.75)
+    subset = subset[
+        (subset["question_len"] >= q25) &
+        (subset["question_len"] <= q75)
+    ]
+    
+    sample = subset.sample(1, random_state=seed).iloc[0]
+    return sample
+
+math_case = get_representative(mmlu_df, "Mathematical")
+nonmath_case = get_representative(mmlu_df, "Non-Mathematical")
+
+choices_labels = ["A", "B", "C", "D"]
+
+def print_case(label, row):
+    print(f"{'='*60}")
+    print(f"[{label}]")
+    print(f"Subject  : {row['subject']}")
+    print(f"Category : {row['category']}")
+    print(f"Length   : {row['question_len']} words")
+    print(f"\nQuestion :\n{row['question']}")
+    print(f"\nChoices  :")
+    for i, choice in enumerate(row["choices"]):
+        print(f"  ({choices_labels[i]}) {choice}")
+    correct = choices_labels[row["answer"]]
+    print(f"\nAnswer   : ({correct}) {row['choices'][row['answer']]}")
+    print()
+
+print_case("Case A: Mathematical", math_case)
+print_case("Case B: Non-Mathematical", nonmath_case)

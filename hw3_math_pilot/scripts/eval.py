@@ -4,7 +4,7 @@ import re
 import pandas as pd
 
 PROB_PATH = "data/math_problems.jsonl"
-GEN_PATH  = "logs/generations.jsonl"
+GEN_PATH  = "logs/generations_seed2.jsonl"
 OUT_CSV   = "results/metrics.csv"
 
 

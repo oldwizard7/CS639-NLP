@@ -6,7 +6,7 @@ from datasets import load_dataset
 DATASET_NAME = "qwedsacf/competition_math"
 SPLIT = "train"          # this dataset mirror only provides 'train'
 SEED = 0
-N = 20
+N = 50
 OUT_PATH = "data/math_problems.jsonl"
 
 def main():

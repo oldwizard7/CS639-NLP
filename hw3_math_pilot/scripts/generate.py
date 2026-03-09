@@ -3,7 +3,9 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 DATA_PATH = "data/math_problems.jsonl"
-OUT_PATH = "logs/generations.jsonl"
+
+RUN_SEED = 2
+OUT_PATH = f"logs/generations_seed{RUN_SEED}.jsonl"
 
 MODELS = {
     "base": "Qwen/Qwen2.5-Math-1.5B",
@@ -15,10 +17,8 @@ K = 5
 TEMPERATURE = 0.7
 TOP_P = 0.95
 MAX_NEW_TOKENS = 512
-SEED = 0
 
-PROMPT_TMPL = """Solve the following problem. Show numbered steps, then end with:
-Final Answer: <your answer>
+PROMPT_TMPL = """Solve the following problem. Show numbered steps.
 
 Problem:
 {problem}
@@ -41,22 +41,18 @@ def extract_final_answer(text):
     m = re.search(r"Final Answer:\s*(.+)", text, flags=re.IGNORECASE)
     if m:
         return m.group(1).strip().splitlines()[0].strip()
-
-    # 2) boxed answer (common for SFT/DRPO)
+    # 2) boxed answer
     m = re.findall(r"\\boxed\{([^}]*)\}", text)
     if m:
         return m[-1].strip()
-
-    # 3) natural language pattern (common for Base)
+    # 3) natural language
     m = re.search(r"final answer is\s*\$?(.+?)\$?[\.\n]", text, flags=re.IGNORECASE)
     if m:
         return m.group(1).strip()
-
-    # 4) fallback: last number-like token
+    # 4) last number-like token fallback
     m = re.findall(r"(-?\d+\.?\d*)", text)
     if m:
         return m[-1].strip()
-
     return None
 
 def main():
@@ -66,8 +62,9 @@ def main():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print("Device:", device)
     print(f"Loaded {len(problems)} problems from {DATA_PATH}")
+    print(f"RUN_SEED={RUN_SEED}  ->  OUT_PATH={OUT_PATH}")
 
-    # overwrite each run
+    # overwrite each run file
     if os.path.exists(OUT_PATH):
         os.remove(OUT_PATH)
 
@@ -89,7 +86,8 @@ def main():
                 inputs = tok(prompt, return_tensors="pt").to(device)
 
                 for sample_id in range(K):
-                    set_seed(SEED + sample_id)
+                    seed_used = RUN_SEED * 1000 + sample_id
+                    set_seed(seed_used)
                     t0 = time.time()
 
                     with torch.no_grad():
@@ -110,11 +108,12 @@ def main():
                         "model_tag": tag,
                         "model_name": name,
                         "sample_id": sample_id,
+                        "run_seed": RUN_SEED,
                         "decoding": {
                             "temperature": TEMPERATURE,
                             "top_p": TOP_P,
                             "max_new_tokens": MAX_NEW_TOKENS,
-                            "seed": SEED + sample_id,
+                            "seed": seed_used,
                         },
                         "prompt": prompt,
                         "output_text": gen,

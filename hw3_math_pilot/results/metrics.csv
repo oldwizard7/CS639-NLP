@@ -1,4 +1,4 @@
 model_tag,pass_at_1,pass_at_k,k
-base,0.25,0.45,5
-drpo,0.3,0.55,5
-sft,0.45,0.55,5
+base,0.38,0.54,5
+drpo,0.3,0.48,5
+sft,0.34,0.46,5

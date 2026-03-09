@@ -1,0 +1,6 @@
+\subsection{Exploratory Data Analysis on MATH}
+We analyzed the MATH benchmark loaded from \texttt{jeggers/competition\_math:original}, with 12500 examples in total: 7500 train and 5000 test. On the training split, the largest subject is Algebra (23.25\%), while the smallest is Precalculus (9.95\%). Difficulty is spread across Levels 1--5 with training proportions of L1=7.52\%, L2=17.97\%, L3=21.23\%, L4=22.53\%, and L5=30.72\%.
+
+For text length, training problems have median token length 49.00 with IQR [32.00, 80.00], and training solutions have median 162.00 with IQR [95.00, 285.00]. On the test split, problem median/IQR is 47.00 [32.00, 73.00], and solution median/IQR is 153.00 [91.00, 274.00]. Asymptote appears in 0.51\% of training examples. Using coarse answer-type heuristics on training data, we observe integer=62.80\%, fraction=15.72\%, expression=6.72\%, set/list=12.05\%, other=2.65\%, missing=0.05\%.
+
+\noindent\textit{Data source used: jeggers/competition\_math:original; token counting mode: hf\_tokenizer:Qwen/Qwen2.5-1.5B-Instruct.}

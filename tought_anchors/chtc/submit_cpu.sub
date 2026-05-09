@@ -1,0 +1,24 @@
+run_id = $(Cluster).$(Process)
+log_dir = chtc/logs/$(run_id)
+
+universe = vanilla
+
+executable = chtc/run_repo_job.sh
+arguments = thought-anchors.tar.gz python-bundle.tar.gz python3 generate_rollouts.py --provider Together --num_problems 5 --num_rollouts 5
+
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+transfer_input_files = chtc/thought-anchors.tar.gz, chtc/python-bundle.tar.gz
+
+log = $(log_dir)/$(run_id).log
+output = $(log_dir)/$(run_id).out
+error = $(log_dir)/$(run_id).err
+
+# The wrapper runs inside repo/, so outputs live under repo/<dir>.
+transfer_output_files = repo/math_rollouts
+
+request_cpus = 1
+request_memory = 8GB
+request_disk = 20GB
+
+queue 1

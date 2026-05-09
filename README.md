@@ -70,15 +70,3 @@ We also include GPT-5.4 nano as a closed-source reference model for the multi-tr
 
 - **MATH-500**: used for multi-trajectory sampling and graph-based topology analysis.
 - **MMLU slice**: used for sentence-level Thought Anchor analysis.
-
-## Repository Structure
-
-```text
-CS639-NLP/
-├── README.md
-├── report/              # Final report and LaTeX source
-├── slides/              # Presentation slides
-├── figures/             # Figures used in the report
-├── scripts/             # Experiment and analysis scripts
-├── results/             # Generated metrics and analysis outputs
-└── data/                # Dataset subsets or processed inputs

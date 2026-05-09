@@ -1,0 +1,6 @@
+strategy,models,n_branches_per_problem,n_problems,voted_correct,recovered_pct
+drpo_self_maj3,drpo,3,25,0,0.0
+drpo+base,drpo+base,6,25,0,0.0
+drpo+sft,drpo+sft,6,25,2,0.08
+drpo+openai_nano,drpo+openai_nano,6,25,3,0.12
+drpo+all_donors,drpo+base+sft+openai_nano,12,25,17,0.68

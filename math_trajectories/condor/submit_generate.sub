@@ -1,0 +1,75 @@
+# math_trajectories: 生成轨迹 Condor 作业
+# 提交: cd ~/cs639/Project/math_trajectories && condor_submit condor/submit_generate.sub
+#
+# 用法（每次提交一个模型）:
+#   condor_submit condor/submit_generate.sub \
+#     -append 'MODEL_TAG=sft' \
+#     -append 'MODEL_NAME=qwen2.5-math-7b-instruct' \
+#     -append 'CONFIG_FILE=configs/qwen2.5-math-7b-instruct.env'
+#
+# Math500:
+#   condor_submit condor/submit_generate.sub \
+#     -append 'MODEL_TAG=sft' \
+#     -append 'MODEL_NAME=qwen2.5-math-7b-instruct' \
+#     -append 'CONFIG_FILE=configs/qwen2.5-math-7b-instruct.env' \
+#     -append 'INPUT_FILE=math_trajectories/data/math500.jsonl' \
+#     -append 'OUTPUT_FILE=output/generations_math500_sft.jsonl'
+#
+#   condor_submit condor/submit_generate.sub \
+#     -append 'MODEL_TAG=base' \
+#     -append 'MODEL_NAME=qwen2.5-math-7b' \
+#     -append 'CONFIG_FILE=configs/qwen2.5-math-7b.env'
+#
+#   condor_submit condor/submit_generate.sub \
+#     -append 'MODEL_TAG=drpo' \
+#     -append 'MODEL_NAME=qwen2.5-math-7b-oat-zero' \
+#     -append 'CONFIG_FILE=configs/qwen2.5-math-7b-oat-zero.env'
+#
+# 完成后: Condor 会把 output/ 中的文件回传到项目根目录
+
+initialdir   = /home/ctong29/cs639/Project/math_trajectories
+
+executable   = /home/ctong29/cs639/Project/math_trajectories/condor/run_generate.sh
+
+log    = /home/ctong29/cs639/Project/math_trajectories/condor/logs/generate.$(Cluster).$(Process).log
+output = /home/ctong29/cs639/Project/math_trajectories/condor/logs/generate.$(Cluster).$(Process).out
+error  = /home/ctong29/cs639/Project/math_trajectories/condor/logs/generate.$(Cluster).$(Process).err
+
+stream_output = True
+stream_error  = True
+
+# GPU 资源（7B BF16 约需 15GB）
+request_gpus   = 1
+request_cpus   = 4
+request_memory = 16GB
+request_disk   = 50GB
+
++WantGPULab   = true
++GPUJobLength = "short"
+# 4h: 7B 模型加载 + Math500(500题x3samples) 预留足够时间
++MaxRuntime   = 14400
+
+# 仅使用全卡大显存 GPU，避开 A100 MIG 切片和 L40，
+# 因为当前 vLLM 环境在这些设备分配方式上会出现 CUDA_VISIBLE_DEVICES/UUID 问题。
+require_gpus = GlobalMemoryMb >= 70000
+
+# 文件传输
+should_transfer_files   = YES
+when_to_transfer_output = ON_EXIT_OR_EVICT
+
+transfer_input_files = \
+    /home/ctong29/local-llm-serve, \
+    /home/ctong29/cs639/Project/math_trajectories
+
+transfer_output_files = output/
+
+# 默认参数（可通过 -append 覆盖）
+MODEL_TAG    = sft
+MODEL_NAME   = qwen2.5-math-7b-instruct
+CONFIG_FILE  = configs/qwen2.5-math-7b-instruct.env
+INPUT_FILE   = math_trajectories/data/math_subset.jsonl
+OUTPUT_FILE  = output/generations_$(MODEL_TAG).jsonl
+
+environment = "MODEL_TAG=$(MODEL_TAG) MODEL_NAME=$(MODEL_NAME) CONFIG_FILE=$(CONFIG_FILE) INPUT_FILE=$(INPUT_FILE) OUTPUT_FILE=$(OUTPUT_FILE)"
+
+queue 1

@@ -1,0 +1,124 @@
+=== Working directory: /var/lib/condor/execute/slot2/dir_1894100/scratch ===
+total 68
+drwx------ 9 ctong29 ctong29  4096 Apr  8 03:01 .
+drwxr-xr-x 5 condor  condor   4096 Apr  8 03:01 ..
+-rwx------ 1 ctong29 ctong29    48 Apr  8 03:01 .chirp.config
+drwxr-xr-x 2 ctong29 ctong29  4096 Apr  8 03:01 .condor_creds
+-rw-r--r-- 1 ctong29 ctong29  6456 Apr  8 03:01 .job.ad
+-rw-r--r-- 1 ctong29 ctong29 12650 Apr  8 03:01 .machine.ad
+drwx------ 3 ctong29 ctong29  4096 Apr  8 03:01 home
+drwxr-xr-x 7 ctong29 ctong29  4096 Apr  8 03:01 local-llm-serve
+drwxr-xr-x 7 ctong29 ctong29  4096 Apr  8 03:01 math_trajectories
+drwxr-xr-x 2 ctong29 ctong29  4096 Apr  8 03:01 output
+-rwxr-xr-x 1 ctong29 ctong29  2048 Apr  8 03:01 run_generate.sh
+drwx------ 2 ctong29 ctong29  4096 Apr  8 03:01 tmp
+drwx------ 3 ctong29 ctong29  4096 Apr  8 03:01 var
+==========================
+=== Unpacking vLLM environment ===
+conda-unpack done (exit=0)
+Python 3.11.14 (main, Oct 21 2025, 18:31:21) [GCC 11.2.0], prefix=/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env
+=== Starting vLLM server (model: qwen2.5-math-7b-oat-zero) ===
+Detected GPU(s): No devices were found
+Precision selection source: auto-unsupported-gpu-family
+Effective quantization: <default>
+Effective dtype: <default>
+=== Waiting for vLLM ready ===
+(APIServer pid=1895416) INFO 04-08 03:03:30 [utils.py:287] 
+(APIServer pid=1895416) INFO 04-08 03:03:30 [utils.py:287]        █     █     █▄   ▄█
+(APIServer pid=1895416) INFO 04-08 03:03:30 [utils.py:287]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.16.0
+(APIServer pid=1895416) INFO 04-08 03:03:30 [utils.py:287]   █▄█▀ █     █     █     █  model   /staging/ctong29/models/Qwen2.5-Math-7B-Oat-Zero
+(APIServer pid=1895416) INFO 04-08 03:03:30 [utils.py:287]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=1895416) INFO 04-08 03:03:30 [utils.py:287] 
+(APIServer pid=1895416) INFO 04-08 03:03:30 [utils.py:223] non-default args: {'port': 18503, 'model': '/staging/ctong29/models/Qwen2.5-Math-7B-Oat-Zero', 'max_model_len': 4096, 'served_model_name': ['qwen2.5-math-7b-oat-zero']}
+(APIServer pid=1895416) WARNING 04-08 03:03:30 [system_utils.py:271] Found ulimit of 32768 and failed to automatically increase with error current limit exceeds maximum limit. This can cause fd limit errors like `OSError: [Errno 24] Too many open files`. Consider increasing with ulimit -n
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] Error in inspecting model architecture 'Qwen2ForCausalLM'
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] Traceback (most recent call last):
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/models/registry.py", line 1238, in _run_in_subprocess
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     returned.check_returncode()
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/subprocess.py", line 502, in check_returncode
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     raise CalledProcessError(self.returncode, self.args, self.stdout,
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] subprocess.CalledProcessError: Command '['/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/bin/python', '-m', 'vllm.model_executor.models.registry']' returned non-zero exit status 1.
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] 
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] The above exception was the direct cause of the following exception:
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] 
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] Traceback (most recent call last):
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/models/registry.py", line 812, in _try_inspect_model_cls
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     return model.inspect_model_cls()
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]            ^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/logging_utils/log_time.py", line 21, in _wrapper
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     result = func(*args, **kwargs)
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]              ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/models/registry.py", line 773, in inspect_model_cls
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     mi = _run_in_subprocess(
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]          ^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/models/registry.py", line 1241, in _run_in_subprocess
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     raise RuntimeError(
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] RuntimeError: Error raised in subprocess:
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] <frozen runpy>:128: RuntimeWarning: 'vllm.model_executor.models.registry' found in sys.modules after import of package 'vllm.model_executor.models', but prior to execution of 'vllm.model_executor.models.registry'; this may result in unpredictable behaviour
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] Traceback (most recent call last):
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "<frozen runpy>", line 198, in _run_module_as_main
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "<frozen runpy>", line 88, in _run_code
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/models/registry.py", line 1264, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     _run()
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/models/registry.py", line 1257, in _run
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     result = fn()
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]              ^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/models/registry.py", line 774, in <lambda>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     lambda: _ModelInfo.from_model_cls(self.load_model_cls())
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]                                       ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/models/registry.py", line 787, in load_model_cls
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     mod = importlib.import_module(self.module_name)
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/importlib/__init__.py", line 126, in import_module
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     return _bootstrap._gcd_import(name[level:], package, level)
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/models/qwen2.py", line 57, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from vllm.model_executor.model_loader.weight_utils import (
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/model_loader/__init__.py", line 12, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from vllm.model_executor.model_loader.bitsandbytes_loader import BitsAndBytesModelLoader
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/model_loader/bitsandbytes_loader.py", line 25, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from vllm.lora.utils import is_moe_model
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/lora/utils.py", line 17, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from vllm.lora.layers import (
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/lora/layers/__init__.py", line 4, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from vllm.lora.layers.column_parallel_linear import (
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/lora/layers/column_parallel_linear.py", line 19, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from .base_linear import BaseLinearLayerWithLoRA
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/lora/layers/base_linear.py", line 19, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from .utils import _get_lora_device
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/lora/layers/utils.py", line 10, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from vllm.model_executor.layers.fused_moe.fused_moe import try_get_optimal_moe_config
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/layers/fused_moe/__init__.py", line 11, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from vllm.model_executor.layers.fused_moe.fused_moe_method_base import (
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/layers/fused_moe/fused_moe_method_base.py", line 8, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     import vllm.model_executor.layers.fused_moe.modular_kernel as mk
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/layers/fused_moe/modular_kernel.py", line 20, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from vllm.model_executor.layers.fused_moe.utils import (
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/layers/fused_moe/utils.py", line 10, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from vllm.model_executor.layers.quantization.utils.fp8_utils import (
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/layers/quantization/utils/fp8_utils.py", line 22, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     from vllm.model_executor.layers.quantization.utils.w8a8_utils import (
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/layers/quantization/utils/w8a8_utils.py", line 51, in <module>
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     CUTLASS_FP8_SUPPORTED = cutlass_fp8_supported()
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]                             ^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/model_executor/layers/quantization/utils/w8a8_utils.py", line 25, in cutlass_fp8_supported
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     capability_tuple = current_platform.get_device_capability()
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/platforms/cuda.py", line 90, in wrapper
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     return fn(*args, **kwargs)
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]            ^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/platforms/cuda.py", line 505, in get_device_capability
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     physical_device_id = cls.device_id_to_physical_device_id(device_id)
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]   File "/var/lib/condor/execute/slot2/dir_1894100/scratch/vllm_env/lib/python3.11/site-packages/vllm/platforms/interface.py", line 215, in device_id_to_physical_device_id
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]     return int(physical_device_id)
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814]            ^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] ValueError: invalid literal for int() with base 10: 'MIG-c5e1d4fb-0f82-5359-95a5-168b9fca8f6e'
+(APIServer pid=1895416) ERROR 04-08 03:03:43 [registry.py:814] 
+ERROR: vLLM startup timeout (3600s)

@@ -1,0 +1,9 @@
+{
+  "model_tag": "base",
+  "pass_at_1": 0.6087,
+  "pass_at_3": 0.772,
+  "mean_distinct_answers": 1.74,
+  "mean_output_len": 1928.9,
+  "n_problems": 500,
+  "k": 3
+}

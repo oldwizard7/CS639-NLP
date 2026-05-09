@@ -1,0 +1,5 @@
+model_tag,pass_at_1,pass_at_3,maj_at_3,maj_minus_pass1,mean_distinct,n_problems
+base,0.6087,0.772,0.666,0.0573,1.74,500
+drpo,0.7233,0.772,0.736,0.0127,1.282,500
+openai_nano,0.7533,0.832,0.79,0.0367,1.342,500
+sft,0.752,0.814,0.778,0.026,1.384,500

@@ -1,0 +1,9 @@
+{
+  "model_tag": "drpo",
+  "pass_at_1": 0.7233,
+  "pass_at_3": 0.772,
+  "mean_distinct_answers": 1.282,
+  "mean_output_len": 1811.0,
+  "n_problems": 500,
+  "k": 3
+}

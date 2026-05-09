@@ -1,0 +1,2 @@
+model_tag,pass_at_1,pass_at_3,mean_distinct_answers,mean_output_len,n_problems,k
+sft,0.7333,0.78,1.38,1762.7,50,3

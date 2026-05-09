@@ -1,0 +1,9 @@
+{
+  "model_tag": "openai_nano",
+  "pass_at_1": 0.7533,
+  "pass_at_3": 0.832,
+  "mean_distinct_answers": 1.342,
+  "mean_output_len": 1007.2,
+  "n_problems": 500,
+  "k": 3
+}

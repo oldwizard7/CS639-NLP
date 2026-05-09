@@ -1,0 +1,9 @@
+{
+  "model_tag": "sft",
+  "pass_at_1": 0.752,
+  "pass_at_3": 0.814,
+  "mean_distinct_answers": 1.384,
+  "mean_output_len": 1837.7,
+  "n_problems": 500,
+  "k": 3
+}
